@@ -1,0 +1,95 @@
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'procedures'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS 'procedures';
+		
+CREATE TABLE 'procedures' (
+  'id' INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  'id_procedure_types' INTEGER NULL DEFAULT NULL,
+  'id_facilities' INTEGER NULL DEFAULT NULL,
+  'tot_price' INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY ('id')
+);
+
+-- ---
+-- Table 'procedure_type'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS 'procedure_type';
+		
+CREATE TABLE 'procedure_type' (
+  'id' INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  'cpt_code' VARCHAR NULL DEFAULT NULL,
+  'description' MEDIUMTEXT NULL DEFAULT NULL,
+  PRIMARY KEY ('id')
+);
+
+-- ---
+-- Table 'facilities'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS 'facilities';
+		
+CREATE TABLE 'facilities' (
+  'id' INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  'name' MEDIUMTEXT NULL DEFAULT NULL,
+  'address' MEDIUMTEXT NULL DEFAULT NULL,
+  'image' BLOB NULL DEFAULT NULL,
+  'reviews' MEDIUMTEXT NULL DEFAULT NULL,
+  PRIMARY KEY ('id')
+);
+
+-- ---
+-- Table 'geolocations'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS 'geolocations';
+		
+CREATE TABLE 'geolocations' (
+  'id' INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  'id_facilities' INTEGER NULL DEFAULT NULL,
+  'latitude' VARCHAR NULL DEFAULT NULL,
+  'longitude' VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY ('id')
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE 'procedures' ADD FOREIGN KEY (id_procedure_types) REFERENCES 'procedure_type' ('id');
+ALTER TABLE 'procedures' ADD FOREIGN KEY (id_facilities) REFERENCES 'facilities' ('id');
+ALTER TABLE 'geolocations' ADD FOREIGN KEY (id_facilities) REFERENCES 'facilities' ('id');
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE 'procedures' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE 'procedure_type' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE 'facilities' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE 'geolocations' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO 'procedures' ('id','id_procedure_types','id_facilities','tot_price') VALUES
+-- ('','','','');
+-- INSERT INTO 'procedure_type' ('id','cpt_code','description') VALUES
+-- ('','','');
+-- INSERT INTO 'facilities' ('id','name','address','image','reviews') VALUES
+-- ('','','','','');
+-- INSERT INTO 'geolocations' ('id','id_facilities','latitude','longitude') VALUES
+-- ('','','','');
